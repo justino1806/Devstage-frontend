@@ -45,7 +45,7 @@ const showInvite = (userData) => {
         <label for="link">
           <img src="link.svg" alt="Link icon">
         </label>
-        <input type="text" id="link" value="https://devstage.com?ref=${userData.ref}" disabled>
+        <input type="text" id="link" value="https://justino1806.github.io/Devstage-frontend?ref=${userData.ref}" disabled>
 
       </div>
     </main>
@@ -65,10 +65,14 @@ const showInvite = (userData) => {
 }
 
 const saveUser = (userData) => {
+    // Captura o parâmetro 'ref' da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const refFromUrl = urlParams.get('ref');
+    
     const newUser = {
         ...userData,
         ref: Math.round(Math.random() * 10000), // TODO: Implementar solução para impedir que mais usuarios possuam refs iguais!
-        refby: 100 // TODO: Melhorar para pegar o valor diretamente da URL do link de convite
+        refby: refFromUrl ? parseInt(refFromUrl) : null // Pega o valor da URL ou null se não existir
     }
     users.push(newUser);
     return newUser;
